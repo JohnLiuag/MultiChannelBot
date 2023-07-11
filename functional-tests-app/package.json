@@ -1,0 +1,25 @@
+{
+    "type": "module",
+    "scripts": {
+        "testSuite": "cross-env-shell mocha $FOLDER_WITH_TESTS --grep 'intents' --invert=true --ui tdd -r './test/hooks.js' -r mochawesome/register -r dotenv/config --recursive --parallel --jobs 10 --reporter mochawesome --reporter-options code=false,showHooks=context --timeout 120000",
+        "serialMode": "mocha --ui tdd -r './test/hooks.js' -r dotenv/config --recursive --reporter mochawesome --reporter-options code=false,showHooks=context",
+        "checkDEV": "cross-env FOLDER_WITH_TESTS=test SERVER=DEV npm run testSuite",
+        "checkTEST": "cross-env FOLDER_WITH_TESTS=test SERVER=TEST npm run testSuite",
+        "checkSTAGE": "cross-env FOLDER_WITH_TESTS=test SERVER=STAGE npm run testSuite"
+    },
+    "dependencies": {
+        "ajv": "^8.6.3",
+        "chai": "^4.3.4",
+        "chai-like": "^1.1.1",
+        "chai-things": "^0.2.0",
+        "dotenv": "^10.0.0",
+        "glob": "^7.1.7",
+        "mocha": "^9.1.1",
+        "mochawesome": "^6.2.2",
+        "node-fetch": "^2.6.1"
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.3",
+        "prettier": "2.4.0"
+    }
+}

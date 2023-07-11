@@ -1,0 +1,5 @@
+/mochawesome-report/
+/node_modules/
+*.schema.js
+README.md
+package-lock.json

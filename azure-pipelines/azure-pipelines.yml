@@ -1,0 +1,72 @@
+# https://aka.ms/yaml
+
+# build pipeline for node.js chatbot app
+
+trigger:
+  - master
+  - release
+  
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+  - stage: Build
+    jobs:
+      - job: BuildJob
+        steps:
+          # Install node
+          - task: NodeTool@0
+            inputs:
+              versionSource: 'fromFile'
+              versionFilePath: 'src/.nvmrc'
+            displayName: 'Install Node.js'
+          
+           # Install packages
+          - task: Npm@1
+            displayName: 'npm install'
+            inputs:
+              command: 'install'
+          
+          # Build solution (transpile to js)
+          - task: Npm@1
+            displayName: 'npm run build'
+            inputs:
+              command: 'custom'
+              customCommand: 'run build'
+          
+          # Build the deployment scripts (transpile to js)
+          - task: Npm@1
+            displayName: 'run clu-build-script'
+            inputs:
+              command: 'custom'
+              customCommand: 'run clu-build-script'
+
+        # Copy only the necessary files into the staging directory
+          - task: CopyFiles@2
+            displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+            inputs:
+              Contents: |
+                deploymentScripts/**/*
+                cognitive-resources/**/*
+                lib/**/*
+                node_modules/**/*
+                src/.nvmrc
+                package.json
+                web.config
+              TargetFolder: '$(Build.ArtifactStagingDirectory)'
+          
+          # Archive files from the staging directory
+          - task: ArchiveFiles@2
+            inputs:
+              rootFolderOrFile: '$(Build.ArtifactStagingDirectory)'
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+              replaceExistingArchive: true
+              
+          # Publish the archive file as an artifact
+          - task: PublishPipelineArtifact@1
+            inputs:
+              targetPath: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+              artifact: 'drop'
+              publishLocation: 'pipeline'

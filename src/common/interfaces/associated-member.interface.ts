@@ -1,0 +1,45 @@
+export interface IAssociatedMember {
+    id: string,
+    cosmosLastUpdated: string,
+    memberId: string,
+    memberFirstName: string,
+    memberLastName: string,
+    memberFullName: string,
+    mmi: number,
+    empi: number,
+    tpaClient: string,
+    tpaId: string,
+    tpaDiv: string,
+    mmIs: ImmI[],
+    empIs: IempI[],
+}
+export interface ImmI {
+    mmi: number,
+    sourceSystem: string,
+    associatedMemberId: string,
+    memberId: string,
+    eligibilityStartDate: string,
+    groupNumber: string,
+    groupName: string,
+    corporateId: string,
+    planType: string,
+    lineOfBusiness: string,
+    isCurrentEligibilityInfo: boolean,
+}
+export interface IempI {
+    empi: number,
+    sourceSystem: string,
+    associatedMemberId: string,
+    memberId: string,
+    eligibilityStartDate: string,
+    eligibilityEndDate: string,
+    groupNumber: string,
+    groupName: string,
+    corporateId: string,
+    planType: string,
+    lineOfBusiness: string,
+    isCurrentEligibilityInfo: boolean
+    tpaClient: string,
+    tpaId: string,
+    tpaDiv: string
+}

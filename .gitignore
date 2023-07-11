@@ -1,0 +1,17 @@
+lib/
+logs/
+node_modules/
+.nyc_output/
+.vscode/
+.env
+.DS_Store
+.idea/
+
+deploymentScripts/clu-deployment.js
+tools/clu-comparing.js
+
+functional-tests-app/mochawesome-report/
+functional-tests-app/node_modules/
+functional-tests-app/test-data/temp-users-data/*
+functional-tests-app/.vscode/
+functional-tests-app/.env

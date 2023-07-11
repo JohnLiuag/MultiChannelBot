@@ -1,0 +1,73 @@
+{
+    "name": "multi-channel-bot",
+    "version": "1.0.0",
+    "description": "Demonstrate the core capabilities of the Microsoft Bot Framework",
+    "author": "Generated using Microsoft Bot Builder Yeoman generator v4.15.0",
+    "license": "MIT",
+    "main": "./lib/index.js",
+    "scripts": {
+        "build": "node ./node_modules/typescript/bin/tsc --build",
+        "lint": "tslint -c tslint.json 'src/**/*.ts'",
+        "postinstall": "npm run build && node ./deploymentScripts/webConfigPrep.js",
+        "start": "node ./node_modules/typescript/bin/tsc --build && node ./lib/index.js",
+        "test": "npm run build && nyc mocha lib/tests/**/*.test.js",
+        "watch": "nodemon --watch ./src -e ts --exec \"npm run start\"",
+        "clu-build-script": "node ./node_modules/typescript/bin/tsc ./deploymentScripts/clu-deployment.ts --resolveJsonModule",
+        "clu-deploy": "node ./deploymentScripts/clu-deployment.js",
+        "clu-comparing": "node ./node_modules/typescript/bin/tsc ./tools/clu-comparing.ts --resolveJsonModule && node ./tools/clu-comparing.js",
+        "clu-build-and-deploy": "npm run clu-build-script && npm run clu-deploy"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com"
+    },
+    "nyc": {
+        "extension": [
+            ".ts",
+            ".tsx"
+        ],
+        "exclude": [
+            "**/.eslintrc.js",
+            "**/*.d.ts",
+            "**/*.test.*",
+            "**/tests",
+            "**/coverage",
+            "**/deploymentScripts",
+            "**/src/index.ts"
+        ],
+        "reporter": [
+            "text"
+        ],
+        "all": true
+    },
+    "dependencies": {
+        "@microsoft/recognizers-text-data-types-timex-expression": "1.1.4",
+        "@types/mocha": "^7.0.2",
+        "@types/restify": "8.4.2",
+        "adaptive-expressions": "^4.18.0",
+        "adaptivecards": "^2.10.0",
+        "adaptivecards-templating": "^2.2.0",
+        "botbuilder": "~4.18.0",
+        "botbuilder-ai": "~4.18.0",
+        "botbuilder-applicationinsights": "^4.18.0",
+        "botbuilder-dialogs": "~4.18.0",
+        "botbuilder-storage-redis": "^1.1.2",
+        "botbuilder-testing": "~4.18.0",
+        "dotenv": "^8.2.0",
+        "node-fetch": "^2.6.7",
+        "replace": "~1.2.0",
+        "restify": "~8.5.1",
+        "typescript": "^4.9.4",
+        "winston": "^3.7.2",
+        "winston-azure-application-insights": "^4.0.0",
+        "winston-daily-rotate-file": "^4.6.1",
+        "winston-mongodb": "^5.0.7"
+    },
+    "devDependencies": {
+        "mocha": "^7.1.2",
+        "nodemon": "^2.0.4",
+        "nyc": "^15.0.1",
+        "ts-node": "^8.10.1",
+        "tslint": "^6.1.2"
+    }
+}
